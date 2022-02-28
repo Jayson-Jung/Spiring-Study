@@ -6,10 +6,12 @@ import hello.SpiringStudy.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class MemberService {
     //서비스는 기획쪽과 가깝게 설계한다. (바로바로 기획자와 찾기 쉽게)
 

@@ -1,25 +1,24 @@
 package hello.SpiringStudy;
 
-import hello.SpiringStudy.repository.JdbcMemberRepository;
-import hello.SpiringStudy.repository.JdbcTemplateMemberRepository;
-import hello.SpiringStudy.repository.MemberRepository;
-import hello.SpiringStudy.repository.MemoryMemberRepository;
+import hello.SpiringStudy.repository.*;
 import hello.SpiringStudy.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import javax.swing.*;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource dataSource;
+    private final DataSource dataSource;
+    private final EntityManager em;
 
-    @Autowired
-    public SpringConfig(DataSource dataSource) {
+    public SpringConfig(DataSource dataSource, EntityManager em) {
         this.dataSource = dataSource;
+        this.em = em;
     }
 
     @Bean
@@ -29,8 +28,9 @@ public class SpringConfig {
 
     @Bean
     public MemberRepository memberRepository() {
-        // return new MemoryMemberRepository();
-        //return new JdbcMemberRepository(dataSource);
-        return new JdbcTemplateMemberRepository(dataSource);
+//      return new MemoryMemberRepository();
+//      return new JdbcMemberRepository(dataSource);
+//      return new JdbcTemplateMemberRepository(dataSource);
+        return new JpaMemberRepository(em);
     }
 }
