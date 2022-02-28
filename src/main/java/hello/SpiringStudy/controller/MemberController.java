@@ -4,8 +4,11 @@ import hello.SpiringStudy.domain.Member;
 import hello.SpiringStudy.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 /*컴포넌트 스캔 방식*/
 @Controller // (외부요청을 받고) Spring Contatiner에서 Spring Bean (Member Controller)이 관리가 된다.
@@ -36,5 +39,12 @@ public class MemberController {
         memberService.join(member);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 }
